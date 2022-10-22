@@ -1,0 +1,32 @@
+:root {
+    --white: white;
+    --black:  black;
+    --blue: #08f;
+    --bg-white: white;
+    --bg-black: #002328;
+    --bg-grey: #424242;
+    --main-font-reg: uareg;
+    --main-font-black: uablack;
+    --main-font-bold: uabold;
+    --handwritten: handwritten;
+}
+
+@font-face {
+    font-family: uabold;
+    src: url('/fonts/uabrand/ua-BRAND-bold.otf');
+}
+
+@font-face {
+    font-family: uareg;
+    src: url('/fonts/uabrand/ua-BRAND-regular.otf');
+}
+
+@font-face {
+    font-family: uablack;
+    src: url('/fonts/uabrand/ua-BRAND-black.otf');
+}
+
+@font-face {
+    font-family: handwritten;
+    src: url('/fonts/ArthurDale.ttf');
+}

@@ -1,0 +1,359 @@
+server {
+
+    root /var/www/keyspot/mobile;
+    server_name keyspot.me www.keyspot.me;
+        
+    index index.php index.html;
+        
+    location /api {
+		alias /var/www/keyspot/api;
+		location ~ (index|loader|rating|captcha|/email/reg|/email/restore)\.php {
+            fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+            fastcgi_index index.php;
+			fastcgi_param SCRIPT_FILENAME $request_filename;
+			include fastcgi_params;
+			fastcgi_ignore_client_abort off; 
+        }
+    }
+    
+    listen 443 ssl http2; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/keyspot.me/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/keyspot.me/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    
+    location / {
+        gzip_static on;
+        rewrite ^(.*)$ /index.html break;
+    }
+    
+    location /lang {
+		alias /var/www/keyspot/lang/;
+	}
+
+	location /fonts {
+		alias /var/www/keyspot/fonts/;
+	}
+
+	location /img {
+		alias /var/www/keyspot/img/;
+	}
+
+	location /css {}
+	location /js {}
+	location /about {}
+	location ~ robots.txt {}
+	location ~ sitemap.xml {}
+	
+	location ~ firebase-messaging-sw.js {}
+
+}
+
+server {
+    if ($host = www.keyspot.me) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = keyspot.me) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    server_name keyspot.me www.keyspot.me;
+    listen 80;
+    return 404; # managed by Certbot
+}
+
+server {
+
+    root /var/www/keyspot/mobile;
+    server_name m.keyspot.me www.m.keyspot.me;
+        
+    index index.php index.html;
+        
+    location /api {
+		alias /var/www/keyspot/api;
+		location ~ (index|loader|rating|captcha|/email/reg|/email/restore)\.php {
+            fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+            fastcgi_index index.php;
+			fastcgi_param SCRIPT_FILENAME $request_filename;
+			include fastcgi_params;
+			fastcgi_ignore_client_abort off; 
+        }
+    }
+    
+    location / {
+        gzip_static on;
+        rewrite ^(.*)$ /index.html break;
+    }
+    
+    location /lang {
+		alias /var/www/keyspot/lang/;
+	}
+
+	location /fonts {
+		alias /var/www/keyspot/fonts/;
+	}
+
+	location /img {
+		alias /var/www/keyspot/img/;
+	}
+
+	location /css {}
+	location /js {}
+	location /about {}
+	
+	location ~ robots.txt {}
+	location ~ sitemap.xml {}
+	
+	location ~ firebase-messaging-sw.js {}
+
+    listen 443 ssl http2; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/m.keyspot.me/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/m.keyspot.me/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    
+}
+
+server {
+    if ($host = www.m.keyspot.me) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    if ($host = m.keyspot.me) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    server_name m.keyspot.me www.m.keyspot.me;
+    listen 80;
+    return 404; # managed by Certbot
+}
+
+server {
+     root /var/www/keyspot/admin;
+     server_name admin.keyspot.me www.admin.keyspot.me;
+        
+     index index.php index.html;
+     
+     location /8y85hoe56i35htvhgmeb5yt03pvjt58ytb874yt5c75t {
+     	auth_basic "Admin Login";
+        auth_basic_user_file /etc/nginx/users;
+        alias /usr/share/phpmyadmin/;
+        location ~ \.php$ {
+          fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+          fastcgi_index index.php;
+          fastcgi_param SCRIPT_FILENAME $request_filename;
+          include fastcgi_params;
+          fastcgi_ignore_client_abort off;    
+        }
+          
+        location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ { 
+          access_log    off;
+          log_not_found    off;
+          expires 1M;
+        }
+    }
+    
+	location /luygliglig6ti67t9ougviyrcri5768tygk67o8g {
+     	auth_basic "Admin Login";
+        auth_basic_user_file /etc/nginx/users;
+        alias /var/www/postfixadmin/public/;
+        location ~ \.php$ {
+          fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+          fastcgi_index index.php;
+          fastcgi_param SCRIPT_FILENAME $request_filename;
+          include fastcgi_params;
+          fastcgi_ignore_client_abort off;    
+        }
+          
+        location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ { 
+          access_log    off;
+          log_not_found    off;
+          expires 1M;
+        }
+    }
+
+    listen 443 ssl http2; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/admin.keyspot.me/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/admin.keyspot.me/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+server {
+    if ($host = www.admin.keyspot.me) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = admin.keyspot.me) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+     server_name admin.keyspot.me www.admin.keyspot.me;
+    listen 80;
+    return 404; # managed by Certbot
+
+}
+
+server {
+
+    root /var/www/keyspot/api;
+    server_name api.keyspot.me;
+    
+    index index.php;
+    
+    location / {
+		location ~ (index|loader|rating|captcha)\.php {
+            fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+            fastcgi_index index.php;
+			fastcgi_param SCRIPT_FILENAME $request_filename;
+			include fastcgi_params;
+			fastcgi_ignore_client_abort off; 
+        }
+    }
+    
+
+
+    listen 443 ssl http2; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/api.keyspot.me/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/api.keyspot.me/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    
+    add_header Access-Control-Allow-Origin *;
+
+}
+
+server {
+    if ($host = api.keyspot.me) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    server_name api.keyspot.me;
+    listen 80;
+    return 404; # managed by Certbot
+}
+
+server {
+
+    root /var/www/keyspot/socket;
+    server_name socket.keyspot.me;
+    
+    location / {
+        proxy_pass http://localhost:8000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_connect_timeout 1d;
+        proxy_send_timeout 1d;
+        proxy_read_timeout 1d;
+    }
+    
+    location ~ (index)\.php {
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+        fastcgi_index index.php;
+		fastcgi_param SCRIPT_FILENAME $request_filename;
+		include fastcgi_params;
+		fastcgi_ignore_client_abort off; 
+    }
+
+    listen 443 ssl http2; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/socket.keyspot.me/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/socket.keyspot.me/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+server {
+    if ($host = socket.keyspot.me) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+    
+    server_name socket.keyspot.me;
+    listen 80;
+    return 404; # managed by Certbot
+}
+
+server {
+	listen 80;
+	listen 443;
+	server_name keyspot.ru www.keyspot.ru;
+	rewrite ^ https://keyspot.me$request_uri;
+}
+
+server {
+	listen 80;
+	listen 443;
+	server_name keyspot.su www.keyspot.su;
+	rewrite ^ https://keyspot.me$request_uri;
+}
+
+server {
+	listen 80;
+	listen 443;
+	server_name keyspot.space www.keyspot.space;
+	rewrite ^ https://keyspot.me$request_uri;
+}
+
+server {
+	listen 80;
+	listen 443;
+	server_name keyspot.online www.keyspot.online;
+	rewrite ^ https://keyspot.me$request_uri;
+}
+
+server {
+	listen 80;
+	listen 443;
+	server_name key-spot.online www.key-spot.online;
+	rewrite ^ https://keyspot.me$request_uri;
+}
+
+server {
+	listen 80;
+	listen 443;
+	server_name keyspot.website www.keyspot.website;
+	rewrite ^ https://keyspot.me$request_uri;
+}
+
+server {
+	listen 80;
+	listen 443;
+	server_name sents.me www.sents.me;
+	rewrite ^ https://keyspot.me$request_uri;
+}
+
+server {
+
+    root /var/www/bydovgal/public;
+    server_name bydovgal.com;
+    
+    index index.php;
+    
+    location / {
+	location ~ \.php {
+        	fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+        	fastcgi_index index.php;
+		fastcgi_param SCRIPT_FILENAME $request_filename;
+		include fastcgi_params;
+		fastcgi_ignore_client_abort off; 
+        }
+    }
+    
+
+
+    listen 443 ssl http2; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/api.keyspot.me/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/api.keyspot.me/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    
+    add_header Access-Control-Allow-Origin *;
+
+}

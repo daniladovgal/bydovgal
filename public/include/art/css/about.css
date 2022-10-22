@@ -1,0 +1,33 @@
+.container1 {
+   height: 70vh;
+   background-position: 70% center;
+}
+
+.container1 > .text {
+   justify-content: center;
+   text-align: center;
+}
+
+.container2 > .block2 {
+   padding: 0px 100px;
+}
+
+.container2 > .block3 {
+   margin: 0;
+}
+
+.container2 > .block1 > .btn {
+   margin-bottom: 20px;
+}
+
+.container2 > .block2  > .items > .text2 {
+   text-align: left;
+   justify-content: flex-start;
+}
+
+@media (max-width: 800px) {
+   .container2 > .block2 {
+      padding: 0;
+      width: 100%;
+   }
+}

@@ -1,0 +1,16 @@
+.container1 {
+   height: 70vh;
+}
+
+.container1 > .text {
+   justify-content: center;
+   text-align: center;
+}
+
+.container2 > .block3 {
+   margin: 0;
+}
+
+.container2 > .block1 > .btn {
+   margin-bottom: 50px;
+}

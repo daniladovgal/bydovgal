@@ -1,0 +1,10 @@
+@media (max-width: 1100px) {
+   .container1 .block .text {
+      color: var(--black);
+      width: calc(100% - 40px);
+   }
+   .container1 .block .btn {
+      color: var(--black);
+      border: solid 1px var(--black);
+   }
+}

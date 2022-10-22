@@ -1,0 +1,36 @@
+.container1 {
+   height: 70vh;
+   background-position: center center;
+}
+
+.container1 > .text {
+   justify-content: center;
+   text-align: center;
+}
+
+.table {
+   padding: 20px 20px 70px 20px;
+   flex-direction: column;
+   margin: 0px 20px;
+   white-space: nowrap;
+}
+
+.tr {
+   width: 100%;
+   min-height: 40px;
+   padding: 20px 0px;
+   border-bottom: solid 1px var(--black);
+}
+
+.td {
+   font-size: 20px;
+   width: 200px;
+   white-space: normal;
+   text-align: center;
+   margin: 10px;
+}
+
+.tr .first {
+   text-align: left;
+   justify-content: flex-start;
+}
